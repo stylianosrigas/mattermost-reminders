@@ -84,7 +84,7 @@ func postReminder() error {
 	log.Info("Checking if any reminder should pe sent")
 
 	//It will notify in the last 15minutes before end of day
-	if (endOfDayHour-nowNASA.Hour()) <= 1 && (endOfDayHour-nowNASA.Hour()) >= 0 && (endOfDayMinute-nowNASA.Minute()) <= minutesBeforeEndToNotify && (endOfDayMinute-nowNASA.Minute()) > 0 {
+	if (endOfDayHour-nowNASA.Hour()) < 1 && (endOfDayHour-nowNASA.Hour()) >= 0 && (endOfDayMinute-nowNASA.Minute()) <= minutesBeforeEndToNotify && (endOfDayMinute-nowNASA.Minute()) > 0 {
 		log.Info("Its time to remind the NASA users")
 		err = sendMattermostNotification(os.Getenv("Message"), os.Getenv("NASATimeZoneUsers"), os.Getenv("Description"))
 		if err != nil {
@@ -92,7 +92,7 @@ func postReminder() error {
 		}
 	}
 
-	if (endOfDayHour-nowAPAC.Hour()) <= 1 && (endOfDayHour-nowAPAC.Hour()) >= 0 && (endOfDayMinute-nowAPAC.Minute()) <= minutesBeforeEndToNotify && (endOfDayMinute-nowAPAC.Minute()) > 0 {
+	if (endOfDayHour-nowAPAC.Hour()) < 1 && (endOfDayHour-nowAPAC.Hour()) >= 0 && (endOfDayMinute-nowAPAC.Minute()) <= minutesBeforeEndToNotify && (endOfDayMinute-nowAPAC.Minute()) > 0 {
 		log.Info("Its time to remind the APAC users")
 		err = sendMattermostNotification(os.Getenv("Message"), os.Getenv("APACTimezoneUsers"), os.Getenv("Description"))
 		if err != nil {
@@ -100,7 +100,7 @@ func postReminder() error {
 		}
 	}
 
-	if (endOfDayHour-nowEMEA.Hour()) <= 1 && (endOfDayHour-nowEMEA.Hour()) >= 0 && (endOfDayMinute-nowEMEA.Minute()) <= minutesBeforeEndToNotify && (endOfDayMinute-nowEMEA.Minute()) > 0 {
+	if (endOfDayHour-nowEMEA.Hour()) < 1 && (endOfDayHour-nowEMEA.Hour()) >= 0 && (endOfDayMinute-nowEMEA.Minute()) <= minutesBeforeEndToNotify && (endOfDayMinute-nowEMEA.Minute()) > 0 {
 		log.Info("Its time to remind the EMEA users")
 		err = sendMattermostNotification(os.Getenv("Message"), os.Getenv("EMEATimezoneUsers"), os.Getenv("Description"))
 		if err != nil {
