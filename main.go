@@ -29,9 +29,6 @@ func main() {
 func checkEnvVariables() error {
 	var envVariables = []string{
 		"MattermostNotificationsHook",
-		"NASATimeZoneUsers",
-		"EMEATimezoneUsers",
-		"APACTimezoneUsers",
 		"EndOfDayHour",
 		"EndOfDayMinute",
 		"MinutesBeforeEndToNotify",
@@ -91,10 +88,12 @@ func postReminder() error {
 	if (endOfDayHour-nowNASA.Hour()) < 1 && (endOfDayHour-nowNASA.Hour()) >= 0 && (endOfDayMinute-nowNASA.Minute()) <= minutesBeforeEndToNotify && (endOfDayMinute-nowNASA.Minute()) > 0 {
 		for _, day := range daysToNotify {
 			if day == nowNASA.Weekday().String() {
-				log.Info("Its time to remind the NASA users")
-				err = sendMattermostNotification(os.Getenv("Message"), os.Getenv("NASATimeZoneUsers"), os.Getenv("Description"))
-				if err != nil {
-					return errors.Wrap(err, "failed to send Mattermost notification")
+				if os.Getenv("NASATimeZoneUsers") != "" {
+					log.Info("Its time to remind the NASA users")
+					err = sendMattermostNotification(os.Getenv("Message"), os.Getenv("NASATimeZoneUsers"), os.Getenv("Description"))
+					if err != nil {
+						return errors.Wrap(err, "failed to send Mattermost notification")
+					}
 				}
 			}
 		}
@@ -103,10 +102,12 @@ func postReminder() error {
 	if (endOfDayHour-nowAPAC.Hour()) < 1 && (endOfDayHour-nowAPAC.Hour()) >= 0 && (endOfDayMinute-nowAPAC.Minute()) <= minutesBeforeEndToNotify && (endOfDayMinute-nowAPAC.Minute()) > 0 {
 		for _, day := range daysToNotify {
 			if day == nowAPAC.Weekday().String() {
-				log.Info("Its time to remind the APAC users")
-				err = sendMattermostNotification(os.Getenv("Message"), os.Getenv("APACTimezoneUsers"), os.Getenv("Description"))
-				if err != nil {
-					return errors.Wrap(err, "failed to send Mattermost notification")
+				if os.Getenv("APACTimezoneUsers") != "" {
+					log.Info("Its time to remind the APAC users")
+					err = sendMattermostNotification(os.Getenv("Message"), os.Getenv("APACTimezoneUsers"), os.Getenv("Description"))
+					if err != nil {
+						return errors.Wrap(err, "failed to send Mattermost notification")
+					}
 				}
 			}
 		}
@@ -115,10 +116,12 @@ func postReminder() error {
 	if (endOfDayHour-nowEMEA.Hour()) < 1 && (endOfDayHour-nowEMEA.Hour()) >= 0 && (endOfDayMinute-nowEMEA.Minute()) <= minutesBeforeEndToNotify && (endOfDayMinute-nowEMEA.Minute()) > 0 {
 		for _, day := range daysToNotify {
 			if day == nowEMEA.Weekday().String() {
-				log.Info("Its time to remind the EMEA users")
-				err = sendMattermostNotification(os.Getenv("Message"), os.Getenv("EMEATimezoneUsers"), os.Getenv("Description"))
-				if err != nil {
-					return errors.Wrap(err, "failed to send Mattermost notification")
+				if os.Getenv("EMEATimezoneUsers") != "" {
+					log.Info("Its time to remind the EMEA users")
+					err = sendMattermostNotification(os.Getenv("Message"), os.Getenv("EMEATimezoneUsers"), os.Getenv("Description"))
+					if err != nil {
+						return errors.Wrap(err, "failed to send Mattermost notification")
+					}
 				}
 			}
 		}
